@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
+import Loading from "../public/loading.gif";
 
 function App() {
   const fileInput = useRef<HTMLInputElement>(null);
   const [asciiImageUrl, setAsciiImageUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const uploadImage = async () => {
     const formData = new FormData();
@@ -14,6 +16,7 @@ function App() {
 
     formData.append("image", fileInput.current.files![0]);
 
+    setLoading(true);
     try {
       const response = await fetch("http://localhost:3000/upload", {
         method: "POST",
@@ -31,13 +34,17 @@ function App() {
     } catch (error) {
       console.error("Error uploading image:", error);
     }
+    setLoading(false);
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center justify-center w-full min-h-screen">
+      <h1 className="text-4xl font-black text-gray-700 mb-8">
+        Retro Image Converter
+      </h1>
       <form
         id="uploadForm"
-        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        className="bg-white border rounded-xl px-8 pt-6 pb-8 mb-4 flex flex-col gap-4 w-96"
       >
         <input
           type="file"
@@ -45,25 +52,24 @@ function App() {
           name="image"
           accept="image/*"
           ref={fileInput}
-          className="border-2 border-gray-300 rounded-md p-2"
+          className="file:bg-white file:border-nonde file:text-xl file:font-bold file:rounded-xl file:p-6 file:cursor-pointer file:hover:bg-gray-100 file:transition-colors file:"
         />
         <button
           type="button"
           onClick={uploadImage}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-white border border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 transition-colors rounded-xl active text-lg"
         >
-          Upload Image
+          Convert
         </button>
       </form>
 
-      {asciiImageUrl && (
-        <img
-          src={asciiImageUrl}
-          alt="ASCII Art"
-          className="mt-4 border border-gray-400 rounded"
-        />
+      {(loading || asciiImageUrl) && (
+        <div className="rounded-xl border overflow-hidden w-96 min-h-48 flex items-center justify-center">
+          {loading && <img src={Loading} className="w-8" />}
+          {asciiImageUrl && <img src={asciiImageUrl} alt="ASCII Art" />}
+        </div>
       )}
-    </>
+    </div>
   );
 }
 
