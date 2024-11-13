@@ -66,7 +66,7 @@ function App() {
       {(loading || asciiImageUrl) && (
         <div className="rounded-xl border overflow-hidden w-96 min-h-48 flex items-center justify-center">
           {loading && <img src={Loading} className="w-8" />}
-          {asciiImageUrl && <img src={asciiImageUrl} alt="ASCII Art" />}
+          {(asciiImageUrl && !loading) && <img src={asciiImageUrl} alt="ASCII Art" />}
         </div>
       )}
     </div>

@@ -50,18 +50,21 @@ app.post(
     try {
       const image = await Jimp.read(req.file.path);
 
-      // Apply retro filter effects
+      // also can apply any filter as image is removed after that
       image
       .gaussian(1)
       .quantize({
-        colors: 16,
-        imageQuantization: 'floyd-steinberg',
-        paletteQuantization: 'wuquant'
-      });
+        colors: 10,
+        colorDistanceFormula: "euclidean",
+        imageQuantization: 'riemersma',
+        paletteQuantization: 'neuquant'
+      })
 
       const buffer = await image.getBuffer("image/jpeg", {
         quality: 50,
       });
+      // delete file
+      fs.rm(req.file.path, (call) => {})
       res.set("Content-Type", "image/png");
       res.send(buffer);
     } catch (err) {
