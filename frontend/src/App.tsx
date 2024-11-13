@@ -39,12 +39,13 @@ function App() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
-      <h1 className="text-4xl font-black text-gray-700 mb-8">
-        Retro Image Converter
+      <h1 className="text-6xl font-black text-gray-700 mb-8 font-serif text-center">
+        Retro Image <br /> Converter
       </h1>
+      <div className="border rounded-xl overflow-hidden p-6">
       <form
         id="uploadForm"
-        className="bg-white border rounded-xl px-8 pt-6 pb-8 mb-4 flex flex-col gap-4 w-96"
+        className="mb-6 flex items-center justify-center font-serif"
       >
         <input
           type="file"
@@ -57,18 +58,23 @@ function App() {
         <button
           type="button"
           onClick={uploadImage}
-          className="bg-white border border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-2 px-4 transition-colors rounded-xl active text-lg"
+          className="bg-white border border-blue-600 hover:bg-blue-600 text-blue-600 hover:text-white font-bold py-6 px-6 transition-colors rounded-xl active text-xl"
         >
           Convert
         </button>
       </form>
 
       {(loading || asciiImageUrl) && (
-        <div className="rounded-xl border overflow-hidden w-96 min-h-48 flex items-center justify-center">
+        <div className="w-full min-h-48 max-h-56 flex items-center justify-center">
           {loading && <img src={Loading} className="w-8" />}
           {(asciiImageUrl && !loading) && <img src={asciiImageUrl} alt="ASCII Art" />}
         </div>
       )}
+      </div>
+
+      <div className="mt-8 text-gray-500">
+        AD
+      </div>
     </div>
   );
 }
