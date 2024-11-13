@@ -45,15 +45,16 @@ function App() {
       <div className="border rounded-xl overflow-hidden p-6">
       <form
         id="uploadForm"
-        className="mb-6 flex items-center justify-center font-serif"
+        className="flex items-center justify-center font-serif"
       >
         <input
           type="file"
           id="fileInput"
           name="image"
-          accept="image/*"
+          title="only png/jpg/jpeg"
+          accept="image/png, image/jpg, image/jpeg"
           ref={fileInput}
-          className="file:bg-white file:border-nonde file:text-xl file:font-bold file:rounded-xl file:p-6 file:cursor-pointer file:hover:bg-gray-100 file:transition-colors file:"
+          className="file:bg-white file:border-nonde file:text-xl file:font-bold file:rounded-xl file:p-6 file:cursor-pointer file:hover:bg-gray-100 file:transition-colors "
         />
         <button
           type="button"
@@ -65,9 +66,9 @@ function App() {
       </form>
 
       {(loading || asciiImageUrl) && (
-        <div className="w-full min-h-48 max-h-56 flex items-center justify-center">
+        <div className="w-full min-h-48 flex items-center justify-center mt-6">
           {loading && <img src={Loading} className="w-8" />}
-          {(asciiImageUrl && !loading) && <img src={asciiImageUrl} alt="ASCII Art" />}
+          {(asciiImageUrl && !loading) && <img src={asciiImageUrl} alt="ASCII Art" className="max-h-72" />}
         </div>
       )}
       </div>
