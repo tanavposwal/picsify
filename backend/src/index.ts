@@ -10,9 +10,7 @@ config()
 const app = express();
 app.use(express.json());
 const PORT = 3000;
-app.use(
-  cors({ origin: process.env.WEB })
-);
+app.use(cors({ origin: "http://localhost" }));
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,6 +27,10 @@ const upload = multer({ storage: storage });
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
+
+app.get("/", (req, res) => {
+  res.send("ok!")
+})
 
 app.post(
   "/upload",
@@ -65,5 +67,5 @@ app.post(
 );
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on PORT:${PORT}`);
 });
