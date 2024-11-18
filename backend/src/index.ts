@@ -2,17 +2,16 @@ import express, { Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { config } from "dotenv"
 import cors from "cors";
 import { Jimp } from "jimp";
 
+config()
 const app = express();
 app.use(express.json());
 const PORT = 3000;
-
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
+  cors({ origin: process.env.WEB })
 );
 
 const storage = multer.diskStorage({
@@ -31,12 +30,6 @@ if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
 
-const options = {
-  fit: "box" as "box",
-  color: false,
-  width: 60,
-};
-
 app.post(
   "/upload",
   upload.single("image"),
@@ -46,13 +39,11 @@ app.post(
       return;
     }
 
-    // req.file.path
     try {
       const image = await Jimp.read(req.file.path);
-
-      // also can apply any filter as image is removed after that
       image
-      .gaussian(1)
+      .dither()
+      .resize({w: 600})
       .quantize({
         colors: 10,
         colorDistanceFormula: "euclidean",
