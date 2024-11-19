@@ -10,7 +10,7 @@ config()
 const app = express();
 app.use(express.json());
 const PORT = 3000;
-app.use(cors({ origin: "http://localhost" }));
+app.use(cors());
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -47,8 +47,8 @@ app.post(
       .dither()
       .resize({w: 600})
       .quantize({
-        colors: 10,
-        colorDistanceFormula: "euclidean",
+        colors: 12,
+        colorDistanceFormula: 'euclidean',
         imageQuantization: 'riemersma',
         paletteQuantization: 'neuquant'
       })

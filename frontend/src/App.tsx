@@ -31,7 +31,7 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("http://retro-filter.uk.to:3000/upload", {
         method: "POST",
         body: formData,
       });
@@ -51,20 +51,20 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full bg-yellow-100 min-h-screen">
-      <div className="border-4 border-black px-10 py-5 bg-green-200 mt-10 mb-5 -skew-x-3 -skew-y-1 shadow-[6px_7px_0px_black]">
+    <div className="flex flex-col items-center w-full bg-yellow-100 h-screen">
+      <div className="border-4 border-black px-10 py-5 bg-green-300 mt-10 mb-5 -skew-x-3 -skew-y-1 shadow-[6px_7px_0px_black]">
         <h1 className="text-3xl font-black text-black text-center">
-          Retro Image <br /> Converter
+          Retro Image <br /> Converter 📸
         </h1>
       </div>
-      <div className="border-4 border-black px-16 py-12 bg-blue-200 mt-8 mb-5 shadow-[0px_0px_0px_black]">
+      <div className="sm:border-4 border-[3px] border-black sm:px-16 px-6 sm:py-12 py-8 w-full sm:w-fit bg-blue-300 mt-8 mb-5 sm:shadow-[-5px_5px_0px_black]">
         <form
           id="uploadForm"
           className="flex flex-col items-center justify-center"
         >
           {/* images */}
           <div className="flex gap-3">
-            <div className="min-w-48 max-w-56 min-h-56 max-h-64 flex items-center justify-center border-4 border-black relative group overflow-hidden bg-white">
+            <div className="sm:min-w-48 sm:max-w-56 w-40 sm:min-h-56 min-h-44 max-h-56 sm:max-h-64 flex items-center justify-center border-[3px] border-black relative group overflow-hidden bg-white">
               {!selectedImage && <span>select one</span>}
               {selectedImage && (
                 <div>
@@ -75,7 +75,7 @@ function App() {
                 </div>
               )}
             </div>
-            <div className="min-w-48 max-w-56 min-h-56 max-h-64 flex items-center justify-center border-4 border-black relative group overflow-hidden bg-white">
+            <div className="sm:min-w-48 sm:max-w-56 w-40 sm:min-h-56 min-h-44 max-h-56 sm:max-h-64 flex items-center justify-center border-[3px] border-black relative group overflow-hidden bg-white">
               {!selectedImage && <span>select one first</span>}
               {(loading || asciiImageUrl) && (
                 <div>
@@ -101,7 +101,7 @@ function App() {
             <div>
               <label
                 htmlFor="fileInput"
-                className="cursor-pointer bg-purple-200 px-4 py-2 border-4 border-black shadow-[3px_4px_0px_black] hover:bg-purple-300 hover:shadow-[2px_3px_0px_black] text-lg transition-all duration-300 font-bold block"
+                className="cursor-pointer bg-purple-300 px-4 py-2 border-[3px] border-black shadow-[3px_3px_0px_black] hover:shadow-[0px_0px_0px_black] hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-purple-400 sm:text-lg text-sm transition-all duration-300 font-bold block"
               >
                 Choose an Image
               </label>
@@ -119,12 +119,16 @@ function App() {
             <button
               type="button"
               onClick={uploadImage}
-              className="cursor-pointer bg-red-200 px-4 py-2 border-4 border-black shadow-[3px_4px_0px_black] hover:bg-red-300 hover:shadow-[2px_3px_0px_black] text-lg transition-all duration-300 font-bold"
+              className="cursor-pointer bg-red-300 px-4 py-2 border-[3px] border-black shadow-[3px_3px_0px_black] hover:shadow-[0px_0px_0px_black] hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-red-400 sm:text-lg text-sm transition-all duration-300 font-bold"
             >
               Convert
             </button>
           </div>
         </form>
+      </div>
+      <div className="mt-4 flex flex-col items-center justify-center">
+        <h1 className="text-lg font-bold mb-2">Follow me on 𝕏</h1>
+      <a href="https://twitter.com/tanavindev?ref_src=twsrc%5Etfw" className="twitter-follow-button" data-show-count="false">Follow @tanavindev</a>
       </div>
     </div>
   );
